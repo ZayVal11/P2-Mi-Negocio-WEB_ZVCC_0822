@@ -5,137 +5,118 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
+// 1. MIDDLEWARES
+app.use(cors()); // Permite que index.html se comunique con el servidor desde puertos diferentes
+app.use(express.json()); // Permite recibir datos en formato JSON
 
-const MONGODB_URI = "mongodb+srv://ShiroKuro:ZayVal11@shirokuro.31ethad.mongodb.net/?appName=ShiroKuro";
+// 2. CONEXIÓN A MONGODB ATLAS
+// REEMPLAZA esta URL por tu propia cadena de conexión de MongoDB Atlas
+const MONGO_URI = "tu_cadena_de_conexion_de_mongodb_atlas_aqui";
 
-mongoose.connect(MONGODB_URI)
-    .then(() => console.log("Connected to MongoDB"))
-    .catch((error) => console.error("Error connecting to MongoDB:", error));
+mongoose.connect(MONGO_URI)
+    .then(() => console.log("¡Conexión exitosa a MongoDB Atlas!"))
+    .catch(err => console.error("Error de conexión a MongoDB:", err));
 
+// 3. DEFINICIÓN DE ESQUEMAS Y MODELOS (Basados en las colecciones de tu app)
 
-// 1. Colección: consultas
-const consultaSchema = new mongoose.Schema({
-    _id: String,       // PET-901, PET-1234, etc.
-    medico: String,    // Dante Escam, Marina Coral, etc.
-    nombre: String,    // Apolo, Bolo, Copa, etc.
-    fecha: String,     // DD/MM/YY
-    hora: String,      // 10am, 3:30pm, etc.
-    id_vet: String,    // VET-005, VET-002, etc.
-    estado: String     // Pendiente, Completa
-}, { versionKey: false });
+// Modelo Consultorios
+const ConsultorioSchema = new mongoose.Schema({
+    turno: String,
+    horario: String,
+    tel: String,
+    vet: String
+}, { collection: 'consultorios' }); // Especifica el nombre exacto de la colección en Atlas
+const Consultorio = mongoose.model('Consultorio', ConsultorioSchema);
 
-const Consulta = mongoose.model('Consulta', consultaSchema, 'consultas');
+// Modelo Médicos
+const MedicoSchema = new mongoose.Schema({
+    nombre: String,
+    especialidad: String,
+    turno: String,
+    cedula: String,
+    tel: String
+}, { collection: 'medicos' });
+const Medico = mongoose.model('Medico', MedicoSchema);
 
-// 2. Colección: consultorio 
-const consultorioSchema = new mongoose.Schema({
-    _id: String,       // VET-001, VET-002, etc.
-    turno: String,     // Matutino, Vespertino, Nocturno
-    horario: String,   // 9am - 2pm, etc.
-    tel: String,       // Número telefónico largo
-    vet: String        // Alistair Paws, Marina Coral, etc.
-}, { versionKey: false });
-
-const Consultorio = mongoose.model('Consultorio', consultorioSchema, 'consultorio');
-
-// 3. Colección: duenos
-const duenoSchema = new mongoose.Schema({
-    _id: String,             // CL-0042, CL-12545, etc.
-    nombre: String,          // Valeria Martinez, etc.
-    direccion: String,       // Av. Insurgentes #123, etc.
-    tel: String,             // Número telefónico
-    email: String,           // val@gmail.com, etc.
-    rfc: String,             // MASV850520, etc.
-    nombre_mascota: String   // Apolo, Bola, Copo, etc.
-}, { versionKey: false });
-
-const Dueno = mongoose.model('Dueno', duenoSchema, 'duenos');
-
-// 4. Colección: mascotas 
-const mascotaSchema = new mongoose.Schema({
-    _id: String,          // PET-9901, PET-1234, etc.
-    nombre: String,       // Apolo, Bolo, Copo, etc.
-    especie: String,      // Canino, Gato, Loro, Erizo, etc.
-    raza: String,         // Golden Retriever, Persa, etc.
-    fecha: String,        // Fecha de nacimiento DD/MM/YY
-    sexo: String,         // M / H
-    id_dueno: String,     // CL-0042, CL-12545, etc.
-    caracteristicas: {    // Objeto incrustado {"color":"Dorado","peso":"41kg"}
+// Modelo Mascotas
+const MascotaSchema = new mongoose.Schema({
+    nombre: String,
+    especie: String,
+    raza: String,
+    fecha: String,
+    sexo: String,
+    id_dueno: String,
+    caracteristicas: {
         color: String,
-        peso: String
+        peso: String,
+        tamano: String,
+        complexion: String,
+        alimentacion: String
     }
-}, { versionKey: false });
+}, { collection: 'mascotas' });
+const Mascota = mongoose.model('Mascota', MascotaSchema);
 
-const Mascota = mongoose.model('Mascota', mascotaSchema, 'mascotas');
+// Modelo Dueños
+const DuenoSchema = new mongoose.Schema({
+    nombre: String,
+    direccion: String,
+    tel: String,
+    email: String,
+    rfc: String,
+    nombre_mascota: String
+}, { collection: 'duenos' });
+const Dueno = mongoose.model('Dueno', DuenoSchema);
 
-// 5. Colección: medicos 
-const medicoSchema = new mongoose.Schema({
-    _id: String,            // VET-001, VET-002, etc.
-    nombre: String,         // Dr. Alistair Paws, etc.
-    especialidad: String,   // Cirugía, Dermatología, etc.
-    turno: String,          // Matutino, Vespertino, Nocturno
-    cedula: String,         // 12345-IMAG, etc.
-    tel: String             // Número telefónico
-}, { versionKey: false });
+// Modelo Consultas
+const ConsultaSchema = new mongoose.Schema({
+    medico: String,
+    nombre: String,
+    fecha: String,
+    hora: String,
+    id_vet: String,
+    estado: String
+}, { collection: 'consultas' });
+const Consulta = mongoose.model('Consulta', ConsultaSchema);
 
-const Medico = mongoose.model('Medico', medicoSchema, 'medicos');
 
-const mapearModelos = {
-    'consultas': Consulta,
-    'consultorio': Consultorio,
-    'duenos': Dueno,
-    'mascotas': Mascota,
-    'medicos': Medico
-};
+// 4. RUTAS DE LA API (GET para leer datos y renderizarlos en las tablas)
 
-app.get("/api", (req, res) => {
-    res.json({ mensaje: "API de la veterinaria ShiroKuro" });
-});
-
-// GET: Obtener todos los registros de una colección
-app.get('/api/:coleccion', async (req, res) => {
-    const Modelo = mapearModelos[req.params.coleccion];
-    if (!Modelo) return res.status(404).json({ error: "Colección veterinaria no encontrada" });
-
+app.get('/api/consultio', async (req, res) => {
     try {
-        const datos = await Modelo.find();
+        const datos = await Consultorio.find();
         res.json(datos);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// POST: Insertar o actualizar documentos de la veterinaria
-app.post('/api/:coleccion', async (req, res) => {
-    const Modelo = mapearModelos[req.params.coleccion];
-    if (!Modelo) return res.status(404).json({ error: "Colección veterinaria no encontrada" });
-
+app.get('/api/medicos', async (req, res) => {
     try {
-        const { _id } = req.body;
-        const documento = await Modelo.findByIdAndUpdate(_id, req.body, { new: true, upsert: true });
-        res.json({ mensaje: "Sincronizado correctamente en la base ShiroKuro", documento });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+        const datos = await Medico.find();
+        res.json(datos);
+    } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// DELETE: Eliminar un registro veterinario por IDS
-app.delete('/api/:coleccion/:id', async (req, res) => {
-    const Modelo = mapearModelos[req.params.coleccion];
-    if (!Modelo) return res.status(404).json({ error: "Colección veterinaria no encontrada" });
-
+app.get('/api/mascotas', async (req, res) => {
     try {
-        await Modelo.findByIdAndDelete(req.params.id);
-        res.json({ mensaje: `Registro ${req.params.id} eliminado correctamente.` });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+        const datos = await Mascota.find();
+        res.json(datos);
+    } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ==========================================
-// 🚀 ARRANQUE DEL SERVIDOR
-// ==========================================
+app.get('/api/duenos', async (req, res) => {
+    try {
+        const datos = await Dueno.find();
+        res.json(datos);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/consultas', async (req, res) => {
+    try {
+        const datos = await Consulta.find();
+        res.json(datos);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// 5. ENCENDER EL SERVIDOR
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor backend ShiroKuro activo en el puerto ${PORT}`);
+    console.log(`Servidor corriendo en: http://localhost:${PORT}`);
 });
