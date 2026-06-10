@@ -12,7 +12,7 @@ app.use(express.json());
 // ==========================================
 // ⚠️ REEMPLAZA CON TU CADENA DE CONEXIÓN DE MONGODB ATLAS
 // ==========================================
-const MONGO_URI = "tu_cadena_de_conexion_de_mongodb_atlas_aqui";
+const MONGO_URI = "mongodb+srv://ShiroKuro:ZayVal11@shirokuro.31ethad.mongodb.net/ShiroKuro";
 
 mongoose.connect(MONGO_URI)
     .then(() => console.log("🚀 Conectado con éxito a MongoDB Atlas"))
