@@ -1,549 +1,904 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
-    <title>Veterinaria Shirokuro</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        /* 1. CONFIGURACIÓN GENERAL Y FUENTES */
-        * { box-sizing: border-box; } [cite: 1]
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif; [cite: 2]
-            margin: 0; [cite: 2]
-            background-color: #050505; [cite: 2]
-            color: #ffffff; [cite: 2]
-        }
+<title>Veterinaria Shirokuro</title>
 
-        /* 2. ENCABEZADO (HEADER) */
-        header {
-            background-color: #000000; [cite: 2]
-            padding: 30px; [cite: 2]
-            text-align: center; [cite: 3]
-            border-bottom: 3px solid #00FFFF; [cite: 3]
-        }
-        header h2 {
-            margin: 0; [cite: 3]
-            font-family: 'Segoe UI', Arial, sans-serif; [cite: 3]
-            font-size: 35px; [cite: 3]
-            color: #00FFFF; [cite: 3]
-            text-transform: uppercase; [cite: 3]
-            letter-spacing: 3px; [cite: 3]
-        }
+<meta charset="utf-8">
 
-        /* 3. MENÚ DE NAVEGACIÓN */
-        nav {
-            background-color: #4169E1; [cite: 3]
-            display: flex; [cite: 3]
-            justify-content: center; [cite: 3]
-            flex-wrap: wrap; [cite: 3]
-        }
-        nav button {
-            background: none; [cite: 4]
-            border: none; [cite: 4]
-            color: #ffffff; [cite: 4]
-            padding: 15px 20px; [cite: 4]
-            cursor: pointer; [cite: 4]
-            font-weight: bold; [cite: 4]
-            text-transform: uppercase; [cite: 4]
-            font-size: 14px; [cite: 4]
-            transition: 0.3s; [cite: 4]
-        }
-        nav button:hover {
-            background-color: #00FFFF; [cite: 5]
-            color: #000000; [cite: 5]
-        }
-        nav button.active {
-            background-color: #0a1a2a; [cite: 5]
-            color: #00FFFF; [cite: 5]
-            border-bottom: 3px solid #00FFFF; [cite: 5]
-        }
+<meta name="viewport" content="width=device-width,
+ initial-scale=1">
 
-        /* 4. MAQUETACIÓN EN PARALELO (SPLIT LAYOUT) */
-        .content-section {
-            display: none; [cite: 6]
-            padding: 40px; [cite: 6]
-            max-width: 1600px; [cite: 6]
-            margin: 0 auto; [cite: 6]
-            min-height: 60vh; [cite: 6]
-        }
-        .content-section.active {
-            display: flex; [cite: 6]
-            flex-direction: row; [cite: 6]
-            gap: 30px; [cite: 6]
-            align-items: flex-start; [cite: 6]
-        }
-        
-        #inicio.active {
-            display: flex; [cite: 6]
-            flex-direction: row; [cite: 6]
-            align-items: center; [cite: 6]
-            justify-content: center; [cite: 6]
-            gap: 25px; [cite: 6]
-            max-width: 1400px; [cite: 7]
-        }
+<style>
 
-        .sidebar-form {
-            flex: 1; [cite: 7]
-            min-width: 340px; [cite: 7]
-            max-width: 400px; [cite: 8]
-            background-color: #0a1a2a; [cite: 8]
-            border: 2px solid #4169E1; [cite: 8]
-            border-radius: 10px; [cite: 8]
-            padding: 25px; [cite: 8]
-            max-height: 80vh; [cite: 8]
-            overflow-y: auto; [cite: 8]
-        }
-        .sidebar-form::-webkit-scrollbar { width: 6px; } [cite: 9]
-        .sidebar-form::-webkit-scrollbar-thumb {
-            background-color: #4169E1; [cite: 9]
-            border-radius: 3px; [cite: 9]
-        }
-        .sidebar-form h3 {
-            margin: 0; [cite: 9]
-            font-family: 'Segoe UI', Arial, sans-serif; [cite: 9]
-            font-size: 26px; [cite: 9]
-            color: #00FFFF; [cite: 9]
-            text-transform: uppercase; [cite: 9]
-            letter-spacing: 2px; [cite: 9]
-            margin-bottom: 20px; [cite: 9]
-            border-bottom: 2px solid #4169E1; [cite: 9]
-            padding-bottom: 8px; [cite: 9]
-            text-align: center; [cite: 9]
-        }
+/* 1. CONFIGURACIÓN GENERAL Y FUENTES*/
 
-        .table-container { flex: 2.5; width: 100%; } [cite: 9, 10]
-        .table-container h3 {
-            color: #80E0FF; [cite: 10]
-            margin-top: 0; [cite: 10]
-            margin-bottom: 20px; [cite: 10]
-            font-size: 20px; [cite: 10]
-        }
+ * { box-sizing: border-box; }
 
-        .form-group { margin-bottom: 14px; } [cite: 11]
-        .form-group label {
-            display: block; [cite: 11]
-            font-size: 13px; [cite: 11]
-            color: #80E0FF; [cite: 11]
-            margin-bottom: 5px; [cite: 11]
-            font-weight: bold; [cite: 11]
-        }
-        .sidebar-form input[type="text"],
-        .sidebar-form input[type="number"],
-        .sidebar-form input[type="date"],
-        .sidebar-form select {
-            width: 100%; [cite: 11]
-            padding: 10px; [cite: 11]
-            background-color: #050505; [cite: 11]
-            border: 1px solid #4169E1; [cite: 11]
-            color: #ffffff; [cite: 11]
-            border-radius: 5px; [cite: 11]
-            font-family: 'Segoe UI', sans-serif; [cite: 11]
-            font-size: 14px; [cite: 11]
-        }
-        .sidebar-form input:focus,
-        .sidebar-form select:focus {
-            outline: none; [cite: 11]
-            border-color: #00FFFF; [cite: 11]
-            box-shadow: 0 0 5px rgba(0, 255, 255, 0.3); [cite: 11]
-        }
-        .btn-submit-vet {
-            background-color: #4169E1; [cite:12]
-            color: #ffffff; [cite: 12]
-            border: none; [cite: 12]
-            padding: 12px; [cite: 12]
-            width: 100%; [cite: 12]
-            border-radius: 5px; [cite: 12]
-            font-weight: bold; [cite: 12]
-            cursor: pointer; [cite: 12]
-            text-transform: uppercase; [cite: 12]
-            transition: 0.3s; [cite: 12]
-            margin-top: 10px; [cite: 12]
-        }
-        .btn-submit-vet:hover { background-color: #00aeff; color: #000000; } [cite: 12]
+body {
 
-        /* 5. TARJETAS, TABLAS Y DECORACIONES ORIGINALES */
-        .main-article {
-            background-color: #0a1a2a; [cite: 12]
-            border: 2px solid #00FFFF; [cite: 12]
-            border-radius: 10px; [cite: 12]
-            padding: 40px; [cite: 12]
-            text-align: left; [cite: 12]
-            flex: 2; [cite: 12]
-        }
-        .main-article h1 {
-            color: #80E0FF; [cite: 12]
-            border-bottom: 1px solid #4169E1; [cite: 12]
-            padding-bottom: 10px; [cite: 12]
-            margin-top: 0; [cite: 12]
-        }
-        .highlight { color: #00FFFF; font-weight: bold; } [cite: 12]
-        .card {
-            background-color: #111111; [cite: 12]
-            padding: 20px; [cite: 12]
-            margin-bottom: 0; [cite: 13]
-            border-left: 5px solid; [cite: 13]
-            width: 100%; [cite: 13]
-            overflow-x: auto; [cite: 13]
-        }
-        table { width: 100%; border-collapse: collapse; background-color: #0a0a0a; } [cite: 13]
-        th, td {
-            padding: 12px; [cite: 13]
-            text-align: left; [cite: 13]
-            border: 1px solid #222; [cite: 13]
-            font-size: 14px; [cite: 13]
-            white-space: nowrap; [cite: 13]
-        }
-        th { background-color: #111; color: #00FFFF; } [cite: 13]
+font-family: 'Segoe UI', Arial, sans-serif;
+ margin: 0;
 
-        .line-aqua { border-left-color: #00FFFF; } [cite: 13]
-        .line-pink { border-left-color: #FF1493; } [cite: 13]
-        .line-purple { border-left-color: #9400D3; } [cite: 13]
-        .line-blue { border-left-color: #4169E1; } [cite: 13]
-        .line-green { border-left-color: #32CD32; } [cite: 13]
+background-color: #050505;
 
-        .badge {
-            background-color: #111; [cite: 13]
-            padding: 4px 8px; [cite: 13]
-            border-radius: 4px; [cite: 13]
-            border: 1px solid #4169E1; [cite: 13]
-            font-size: 12px; [cite: 13]
-            text-transform: uppercase; [cite: 13]
-        }
+color: #ffffff;
+}
 
-        .img-vet { max-width: 300px; height: auto; display: block; margin: 20px auto; border-radius: 10px; border: 1px solid #4169E1; } [cite: 13, 14]
-        .img-lateral { max-width: 250px; height: auto; border-radius: 10px; border: 2px solid #4169E1; box-shadow: 0 0 15px rgba(65, 105, 225, 0.3); flex: 1; } [cite: 14, 15]
+/* 2. ENCABEZADO (HEADER) */
 
-        /* 6. PIE DE PAGINA (FOOTER) */
-        footer {
-            background-color: #000000; [cite: 16]
-            padding: 25px; [cite: 16]
-            text-align: center; [cite: 16]
-            border-top: 2px solid #4169E1; [cite: 16]
-            margin-top: 50px; [cite: 16]
-            width: 100%; [cite: 16]
-            color: #ffffff; [cite: 17]
-        }
-        footer p { margin: 5px; font-size: 14px; } [cite: 17]
-        .azul-rey { color: #4169E1; font-weight: bold; } [cite: 17, 18]
+header {
 
-        @media (max-width: 1024px) {
-            .content-section.active, #inicio.active { flex-direction: column; align-items: center; } [cite: 18]
-            .sidebar-form { width: 100%; max-width: 100%; max-height: none; } [cite: 18]
-            .img-lateral { max-width: 80%; } [cite: 18]
-        }
-    </style>
+background-color: #000000;
+
+padding: 30px;
+
+text-align: center;
+
+border-bottom: 3px solid #00FFFF;
+}
+
+header h2 {
+
+margin: 0;
+
+font-family: 'Segoe UI', Arial, sans-serif;
+
+font-size: 35px;
+
+color: #00FFFF;
+
+text-transform: uppercase;
+
+letter-spacing: 3px;
+
+}
+
+/* 3. MENÚ DE NAVEGACIÓN  */
+
+nav {
+
+background-color: #4169E1;
+
+display: flex;
+
+justify-content: center;
+
+flex-wrap: wrap;
+
+}
+
+nav button {
+
+background: none;
+
+border: none;
+
+color: #ffffff;
+
+padding: 15px 20px;
+
+cursor: pointer;
+
+font-weight: bold;
+
+text-transform: uppercase;
+
+font-size: 14px;
+
+transition: 0.3s;
+}
+
+nav button:hover {
+
+background-color: #00FFFF;
+
+color: #000000;
+}
+
+nav button.active {
+
+background-color: #0a1a2a;
+
+color: #00FFFF;
+
+border-bottom: 3px solid #00FFFF;
+
+}
+
+/* 4. MAQUETACIÓN EN PARALELO (SPLIT LAYOUT) */
+
+.content-section {
+
+display: none;
+
+padding: 40px;
+
+max-width: 1600px;
+
+margin: 0 auto;
+
+min-height: 60vh;
+
+}
+
+.content-section.active {
+
+display: flex;
+
+flex-direction: row;
+
+gap: 30px;
+
+align-items: flex-start;
+
+}
+
+/* Ajustes para el diseño con imágenes laterales en Inicio*/
+
+#inicio.active {
+
+display: flex;
+
+flex-direction: row;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 25px;
+
+max-width: 1400px;
+}
+
+/* --- BARRA LATERAL IZQUIERDA: Formulario de Registro */   
+ .sidebar-form {
+
+flex: 1;
+
+min-width: 340px;
+
+max-width: 400px;
+
+background-color: #0a1a2a;
+
+border: 2px solid #4169E1;
+
+border-radius: 10px;
+
+padding: 25px;
+
+max-height: 80vh;
+
+overflow-y: auto;
+
+}
+
+/* Estilo para la barra de desplazamiento interna del formulario */
+
+.sidebar-form::-webkit-scrollbar {
+
+width: 6px;
+
+}
+
+.sidebar-form::-webkit-scrollbar-thumb {
+
+background-color: #4169E1;
+
+border-radius: 3px;
+}
+
+/* Titulos de los formularios igualados al diseño del Header */
+ .sidebar-form h3 {
+
+margin: 0;
+
+font-family: 'Segoe UI', Arial, sans-serif;
+
+font-size: 26px;
+
+color: #00FFFF;
+
+text-transform: uppercase;
+
+letter-spacing: 2px;
+
+margin-bottom: 20px;
+
+border-bottom: 2px solid #4169E1;
+
+padding-bottom: 8px;
+
+text-align: center;
+
+}
+
+/*--- AREA DERECHA: Visualización de Tablas de la BD */
+
+.table-container {
+
+flex: 2.5;
+
+width: 100%;
+}
+
+.table-container h3 {
+
+color: #80E0FF;
+
+margin-top: 0;
+
+margin-bottom: 20px;
+
+font-size: 20px;
+
+}
+
+/* Elementos individuales del Formulario */
+
+.form-group {
+
+margin-bottom: 14px;
+
+}
+
+.form-group label {
+
+display: block;
+
+font-size: 13px;
+
+color: #80E0FF;
+
+margin-bottom: 5px;
+
+font-weight: bold;
+
+}
+
+.sidebar-form input[type="text"],
+
+.sidebar-form input[type="number"],
+
+.sidebar-form input[type="date"],
+
+.sidebar-form select {
+
+width: 100%;
+
+padding: 10px;
+
+background-color: #050505;
+
+border: 1px solid #4169E1;
+
+color: #ffffff;
+
+border-radius: 5px;
+
+font-family: 'Segoe UI', sans-serif;
+ font-size: 14px;
+}
+
+.sidebar-form input:focus,
+
+.sidebar-form select:focus {
+
+outline: none;
+
+border-color: #00FFFF;
+
+box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+.btn-submit-vet {
+
+background-color: #4169E1;
+
+color: #ffffff;
+
+border: none;
+
+padding: 12px;
+
+width: 100%;
+
+border-radius: 5px;
+
+font-weight: bold;
+
+cursor: pointer;
+
+text-transform: uppercase;
+
+transition: 0.3s;
+
+margin-top: 10px;
+
+}
+
+.btn-submit-vet:hover {
+
+background-color: #00aeff;
+
+color: #000000;
+
+}
+
+/* 5. TARJETAS, TABLAS Y DECORACIONES ORIGINALES */
+
+.main-article {
+
+background-color: #0a1a2a;
+
+border: 2px solid #00FFFF;
+
+border-radius: 10px;
+
+padding: 40px;
+
+text-align: left;
+
+flex: 2;
+}
+
+.main-article h1 {
+
+color: #80E0FF;
+
+border-bottom: 1px solid #4169E1;
+
+padding-bottom: 10px;
+
+margin-top: 0;
+}
+
+.highlight {
+
+color: #00FFFF;
+
+font-weight: bold;
+
+}
+
+.card {
+
+background-color: #111111;
+
+padding: 20px;
+
+margin-bottom: 0;
+
+border-left: 5px solid;
+
+width: 100%;
+
+overflow-x: auto;
+}
+
+table {
+
+width: 100%;
+
+border-collapse: collapse;
+
+background-color: #0a0a0a;
+}
+
+th, td {
+
+padding: 12px;
+
+text-align: left;
+
+border: 1px solid #222;
+
+font-size: 14px;
+
+white-space: nowrap;
+}
+
+th { background-color: #111; color: #00FFFF; }
+
+/* Estilos de lineas laterales para las tarjetas de tablas */
+
+.line-aqua { border-left-color: #00FFFF; }
+
+.line-pink { border-left-color: #FF1493; }
+
+.line-purple { border-left-color: #9400D3; }
+ .line-blue { border-left-color: #4169E1; }
+ .line-green { border-left-color: #32CD32; }
+
+/* Estilo para los badges de estado en consultas */
+ .badge { 
+
+background-color: #111;
+
+padding: 4px 8px;
+
+border-radius: 4px;
+
+border: 1px solid #4169E1;
+
+font-size: 12px;
+
+text-transform: uppercase;
+
+}
+
+/* Imagen 2 (Centro) */
+ .img-vet {
+
+max-width: 300px;
+
+height: auto;
+
+display: block;
+
+margin: 20px auto;
+
+border-radius: 10px;
+
+border: 1px solid #4169E1;
+}
+
+/* Imagen: 1 y 3 (Laterales fuera del cuadro) */
+ .img-lateral {
+
+max-width: 250px;
+
+height: auto;
+
+border-radius: 10px;
+
+border: 2px solid #4169E1;
+
+box-shadow: 0 0 15px rgba(65, 105, 225, 0.3);
+ flex: 1;
+
+}
+
+/* 6. PIE DE PAGINA (FOOTER) */
+
+footer {
+
+background-color: #000000;
+
+padding: 25px;
+
+text-align: center;
+
+border-top: 2px solid #4169E1;
+
+margin-top: 50px;
+
+width: 100%;
+
+color: #ffffff; 
+}
+
+footer p { margin: 5px; font-size: 14px; }
+ .azul-rey { color: #4169E1; font-weight: bold; }
+
+@media (max-width: 1024px) {
+
+.content-section.active, #inicio.active {
+ flex-direction: column;
+
+align-items: center;
+}
+
+.sidebar-form {
+
+width: 100%;
+
+max-width: 100%;
+
+max-height: none;
+
+}
+
+.img-lateral {
+
+max-width: 80%;
+
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <header>
-        <h2>Shirokuro</h2> [cite: 20]
-    </header>
+<header>
 
-    <nav>
-        <button class="tab-btn active" onclick="openTab(event, 'inicio')">Inicio</button> [cite: 20]
-        <button class="tab-btn" onclick="openTab(event, 'consultorios')">Consultorios</button> [cite: 20]
-        <button class="tab-btn" onclick="openTab(event, 'medicos')">Médicos</button> [cite: 20]
-        <button class="tab-btn" onclick="openTab(event, 'mascotas')">Mascotas</button> [cite: 20]
-        <button class="tab-btn" onclick="openTab(event, 'dueños')">Dueños</button> [cite: 20]
-        <button class="tab-btn" onclick="openTab(event, 'consultas')">Consultas</button> [cite: 20]
-    </nav>
+<h2>Shirokuro</h2>
 
-    <div id="inicio" class="content-section active"> [cite: 20]
-        <img src="img1.png" alt="Nuestro Enfoque Integral" class="img-lateral"> [cite: 20]
-        <article class="main-article"> [cite: 20]
-            <h1>Descripción</h1> [cite: 20]
-            <p>En <span class="highlight">Shirokuro</span> no solo somos una veterinaria...</p> [cite: 20]
-            <p>Atendemos de todo un poco: desde los clásicos perritos y gatitos...</p> [cite: 20]
-            <p>Nuestro sistema de base de datos nos permite organizar la información...</p> [cite: 21]
-            <img src="img2.png" alt="Excelencia Medica" class="img-vet"> [cite: 21]
-        </article> [cite: 21]
-        <img src="img3.png" alt="Cuidado y Amor Total" class="img-lateral"> [cite: 21]
-    </div> [cite: 21]
+</header>
 
-    <div id="consultorios" class="content-section"> [cite: 22]
-        <div class="sidebar-form"> [cite: 22]
-            <h3>Registrar Consultorio</h3> [cite: 22]
-            <form action="#" method="POST"> [cite: 22]
-                <div class="form-group"><label>ID:</label><input type="text" placeholder="Ej: VET-001" required></div> [cite: 22]
-                <div class="form-group"><label>Turno:</label><input type="text" placeholder="Ej: Matutino" required></div> [cite: 22]
-                <div class="form-group"><label>Horario:</label><input type="text" placeholder="Ej: 9:00am 2:00pm" required></div> [cite: 22]
-                <div class="form-group"><label>Teléfono:</label><input type="text" placeholder="Ej: 52 656..." required></div> [cite: 22]
-                <div class="form-group"><label>Médico Responsable:</label><input type="text" required></div> [cite: 22]
-                <button type="submit" class="btn-submit-vet">Guardar Consultorio</button> [cite: 22]
-            </form> [cite: 22]
-        </div> [cite: 22]
-        <div class="table-container"> [cite: 22]
-            <h3>Base de Datos: Consultorios</h3> [cite: 22]
-            <div class="card line-aqua"> [cite: 22]
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Turno</th><th>Horario</th><th>Telefono</th><th>Médico Responsable</th></tr> [cite: 22]
-                    </thead>
-                    <tbody id="tabla-consultorios"></tbody> [cite: 22]
-                </table>
-            </div>
-        </div>
-    </div>
+<nav>
 
-    <div id="medicos" class="content-section"> [cite: 22]
-        <div class="sidebar-form"> [cite: 22]
-            <h3>Registrar Médico</h3> [cite: 22]
-            <form action="#" method="POST"> [cite: 22]
-                <div class="form-group"><label>ID:</label><input type="text" placeholder="Ej: VET-001" required></div> [cite: 22]
-                <div class="form-group"><label>Nombre:</label><input type="text" required></div> [cite: 23]
-                <div class="form-group"><label>Especialidad:</label><input type="text" required></div> [cite: 23]
-                <div class="form-group"><label>Turno:</label><input type="text" required></div> [cite: 23]
-                <div class="form-group"><label>Cédula Profesional:</label><input type="text" required></div> [cite: 23]
-                <div class="form-group"><label>Teléfono:</label><input type="text" required></div> [cite: 23]
-                <button type="submit" class="btn-submit-vet">Alta de Personal</button> [cite: 23]
-            </form> [cite: 23]
-        </div> [cite: 23]
-        <div class="table-container"> [cite: 23]
-            <h3>Base de Datos: Personal Médico</h3> [cite: 23]
-            <div class="card line-pink"> [cite: 23]
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Nombre</th><th>Especialidad</th><th>Turno</th><th>Cedula Profesional</th><th>Telefono</th></tr> [cite: 23]
-                    </thead>
-                    <tbody id="tabla-medicos"></tbody> [cite: 23]
-                </table>
-            </div>
-        </div>
-    </div>
+<button class="tab-btn active" onclick="openTab(event, 'inicio')">Inicio</button>
 
-    <div id="mascotas" class="content-section"> [cite: 23]
-        <div class="sidebar-form"> [cite: 23]
-            <h3>Registrar Mascota</h3> [cite: 23]
-            <form action="#" method="POST"> [cite: 23]
-                <div class="form-group"><label>ID Mascota:</label><input type="text" placeholder="PET-1234" required></div> [cite: 23]
-                <div class="form-group"><label>Nombre Mascota:</label><input type="text" required></div> [cite: 23]
-                <div class="form-group"><label>Especie:</label><input type="text" required></div> [cite: 23]
-                <div class="form-group"><label>Raza:</label><input type="text" required></div> [cite: 23]
-                <div class="form-group"><label>Fecha:</label><input type="text" placeholder="DD/MM/AA" required></div> [cite: 24]
-                <div class="form-group"><label>Sexo:</label><input type="text" placeholder="Macho/Hembra" required></div> [cite: 24]
-                <div class="form-group"><label>Color:</label><input type="text" required></div> [cite: 24]
-                <div class="form-group"><label>ID_Dueño:</label><input type="text" placeholder="CL-XXXXX" required></div> [cite: 24]
-                <div class="form-group"><label>Características:</label><input type="text"></div> [cite: 24]
-                <div class="form-group"><label>Peso:</label><input type="text" placeholder="Ej: 4kg" required></div> [cite: 24]
-                <div class="form-group"><label>Tamaño:</label><input type="text" placeholder="Ej: Mediano" required></div> [cite: 24]
-                <div class="form-group"><label>Complexión:</label><input type="text" required></div> [cite: 24]
-                <div class="form-group"><label>Alimentación:</label><input type="text" placeholder="Ej: Omnívora" required></div> [cite: 24]
-                <button type="submit" class="btn-submit-vet">Ingresar Mascota</button> [cite: 24]
-            </form> [cite: 24]
-        </div> [cite: 24]
-        <div class="table-container"> [cite: 24]
-            <h3>Base de Datos: Pacientes (Mascotas)</h3> [cite: 24]
-            <div class="card line-purple"> [cite: 24]
-                <table>
-                    <thead>
-                        <tr><th>ID Mascota</th><th>Nombre</th><th>Especie</th><th>Raza</th><th>Fecha</th><th>Sexo</th><th>ID Dueño</th><th>Características</th></tr> [cite: 24]
-                    </thead>
-                    <tbody id="tabla-mascotas"></tbody> [cite: 24]
-                </table>
-            </div>
-        </div>
-    </div>
+<button class="tab-btn" onclick="openTab (event, 'consultorios')">Consultorios</button>
 
-    <div id="dueños" class="content-section"> [cite: 24]
-        <div class="sidebar-form"> [cite: 24]
-            <h3>Registrar Dueño</h3> [cite: 24]
-            <form action="#" method="POST"> [cite: 25]
-                <div class="form-group"><label>ID Cliente:</label><input type="text" placeholder="CL-1234" required></div> [cite: 25]
-                <div class="form-group"><label>Nombre Completo:</label><input type="text" required></div> [cite: 25]
-                <div class="form-group"><label>Dirección:</label><input type="text" required></div> [cite: 25]
-                <div class="form-group"><label>Teléfono:</label><input type="text" required></div> [cite: 25]
-                <div class="form-group"><label>Correo Electrónico:</label><input type="text" required></div> [cite: 25]
-                <div class="form-group"><label>RFC:</label><input type="text" required></div> [cite: 25]
-                <div class="form-group"><label>Nombre Mascota:</label><input type="text" required></div> [cite: 25]
-                <button type="submit" class="btn-submit-vet">Añadir Cliente</button> [cite: 25]
-            </form> [cite: 25]
-        </div> [cite: 25]
-        <div class="table-container"> [cite: 25]
-            <h3>Base de Datos: Directorio de Clientes</h3> [cite: 25]
-            <div class="card line-blue"> [cite: 25]
-                <table>
-                    <thead>
-                        <tr><th>ID Cliente</th><th>Nombre Completo</th><th>Direccion</th><th>Teléfono</th><th>Correo Electronico</th><th>RFC</th><th>Nombre Mascota</th></tr> [cite: 25]
-                    </thead>
-                    <tbody id="tabla-duenos"></tbody> [cite: 25]
-                </table>
-            </div>
-        </div>
-    </div>
+<button class="tab-btn" onclick="openTab (event, 'medicos')">Médicos</button>
 
-    <div id="consultas" class="content-section"> [cite: 25]
-        <div class="sidebar-form"> [cite: 25]
-            <h3>Agendar Consulta</h3> [cite: 25]
-            <form action="#" method="POST"> [cite: 25]
-                <div class="form-group"><label>Nombre:</label><input type="text" required></div> [cite: 25]
-                <div class="form-group"><label>ID (Mascota):</label><input type="text" placeholder="PET-XXXX" required></div> [cite: 26]
-                <div class="form-group"><label>Fecha:</label><input type="text" placeholder="DD/MM/AA" required></div> [cite: 26]
-                <div class="form-group"><label>Hora:</label><input type="text" placeholder="Ej: 10am" required></div> [cite: 26]
-                <div class="form-group"><label>ID-VET:</label><input type="text" placeholder="VET-001" required></div> [cite: 26]
-                <div class="form-group"><label>Estado:</label><input type="text" placeholder="Ej: Pendiente" required></div> [cite: 26]
-                <div class="form-group"><label>Médico:</label><input type="text" required></div> [cite: 26]
-                <button type="submit" class="btn-submit-vet">Agendar Consulta</button> [cite: 26]
-            </form> [cite: 26]
-        </div> [cite: 26]
-        <div class="table-container"> [cite: 26]
-            <h3>Base de Datos: Historial de Consultas</h3> [cite: 26]
-            <div class="card line-green"> [cite: 26]
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Médico</th><th>Nombre Mascota</th><th>Fecha</th><th>Hora</th><th>ID-VET</th><th>Estado</th></tr> [cite: 26]
-                    </thead>
-                    <tbody id="tabla-consultas"></tbody> [cite: 26]
-                </table>
-            </div>
-        </div>
-    </div>
+<button class="tab-btn" onclick="openTab (event, 'mascotas')">Mascotas</button>
 
-    <footer>
-        <p>Desarrollado por: <span class="azul-rey">CASTRO CHAIREZ ZULAY VALENTINA</span></p> [cite: 26]
-        <p>No. de Control: <span class="azul-rey">0822</span> | Semestre: <span class="azul-rey">4to</span></p> [cite: 26, 27]
-        <p>Grupo: <span class="azul-rey">J</span> | Especialidad: <span class="azul-rey">Programación</span></p> [cite: 27]
-    </footer>
+<button class="tab-btn" onclick="openTab (event, 'dueños')">Dueños</button>
 
-    <script>
-        const API_URL = "http://localhost:3000/api"; [cite: 28]
+<button class="tab-btn" onclick="openTab (event, 'consultas')">Consultas</button>
 
-        function cargarMascotas() { [cite: 29]
-            fetch(`${API_URL}/mascotas`) [cite: 29]
-                .then(response => response.json()) [cite: 29]
-                .then(data => { [cite: 29]
-                    const tabla = document.getElementById("tabla-mascotas"); [cite: 29]
-                    tabla.innerHTML = ""; [cite: 29]
-                    data.forEach(mascota => { [cite: 29]
-                        tabla.innerHTML += `
-                            <tr>
-                                <td>${mascota._id}</td>
-                                <td>${mascota.nombre || 'N/A'}</td>
-                                <td>${mascota.especie || 'N/A'}</td>
-                                <td>${mascota.raza || 'N/A'}</td>
-                                <td>${mascota.fecha || 'N/A'}</td>
-                                <td>${mascota.sexo || 'N/A'}</td>
-                                <td>${mascota.id_dueno || 'N/A'}</td>
-                                <td>Color: ${mascota.caracteristicas?.color || 'N/A'}, Peso: ${mascota.caracteristicas?.peso || 'N/A'}</td>
-                            </tr>
-                        `; [cite: 29]
-                    }); [cite: 29]
-                }) [cite: 29]
-                .catch(error => console.error("Error al cargar mascotas:", error)); [cite: 29]
-        } [cite: 30]
+</nav>
 
-        function cargarMedicos() { [cite: 30]
-            fetch(`${API_URL}/medicos`) [cite: 30]
-                .then(response => response.json()) [cite: 30]
-                .then(data => { [cite: 30]
-                    const tabla = document.getElementById("tabla-medicos"); [cite: 30]
-                    tabla.innerHTML = ""; [cite: 30]
-                    data.forEach(medico => { [cite: 30]
-                        tabla.innerHTML += `
-                            <tr>
-                                <td>${medico._id}</td>
-                                <td>${medico.nombre || 'N/A'}</td>
-                                <td>${medico.especialidad || 'N/A'}</td>
-                                <td>${medico.turno || 'N/A'}</td>
-                                <td>${medico.cedula || 'N/A'}</td>
-                                <td>${medico.tel || 'N/A'}</td>
-                            </tr>
-                        `; [cite: 31]
-                    }); [cite: 31]
-                }) [cite: 31]
-                .catch(error => console.error("Error al cargar médicos:", error)); [cite: 31]
-        } [cite: 32]
+<div id="inicio" class="content-section active">
 
-        function cargarConsultas() { [cite: 32]
-            fetch(`${API_URL}/consultas`) [cite: 32]
-                .then(response => response.json()) [cite: 32]
-                .then(data => { [cite: 32]
-                    const tabla = document.getElementById("tabla-consultas"); [cite: 32]
-                    tabla.innerHTML = ""; [cite: 32]
-                    data.forEach(consulta => { [cite: 32]
-                        tabla.innerHTML += `
-                            <tr>
-                                <td>${consulta._id}</td>
-                                <td>${consulta.medico || 'N/A'}</td>
-                                <td>${consulta.nombre || 'N/A'}</td>
-                                <td>${consulta.fecha || 'N/A'}</td>
-                                <td>${consulta.hora || 'N/A'}</td>
-                                <td>${consulta.id_vet || 'N/A'}</td>
-                                <td><span class="badge">${consulta.estado || 'Pendiente'}</span></td>
-                            </tr>
-                        `; [cite: 32]
-                    }); [cite: 32]
-                }) [cite: 32]
-                .catch(error => console.error("Error al cargar consultas:", error)); [cite: 32]
-        } [cite: 33]
+<img src="img1.png" alt="Nuestro Enfoque Integral" class="img-lateral">
 
-        function cargarConsultorios() { [cite: 33]
-            fetch(`${API_URL}/consultio`) [cite: 33]
-                .then(response => response.json()) [cite: 34]
-                .then(data => { [cite: 34]
-                    const tabla = document.getElementById("tabla-consultorios"); [cite: 34]
-                    tabla.innerHTML = ""; [cite: 34]
-                    data.forEach(item => { [cite: 34]
-                        tabla.innerHTML += `
-                            <tr>
-                                <td>${item._id}</td>
-                                <td>${item.turno || 'N/A'}</td>
-                                <td>${item.horario || 'N/A'}</td>
-                                <td>${item.tel || 'N/A'}</td>
-                                <td>${item.vet || 'N/A'}</td>
-                            </tr>
-                        `; [cite: 34]
-                    }); [cite: 34]
-                }) [cite: 34]
-                .catch(error => console.error("Error al cargar consultorios:", error)); [cite: 34]
-        } [cite: 35]
+ <article class="main-article">
 
-        function cargarDuenos() { [cite: 35]
-            fetch(`${API_URL}/duenos`) [cite: 35]
-                .then(response => response.json()) [cite: 35]
-                .then(data => { [cite: 35]
-                    const tabla = document.getElementById("tabla-duenos"); [cite: 35]
-                    tabla.innerHTML = ""; [cite: 35]
-                    data.forEach(dueno => { [cite: 35]
-                        tabla.innerHTML += `
-                            <tr>
-                                <td>${dueno._id}</td>
-                                <td>${dueno.nombre || 'N/A'}</td>
-                                <td>${dueno.direccion || 'N/A'}</td>
-                                <td>${dueno.tel || 'N/A'}</td>
-                                <td>${dueno.email || 'N/A'}</td>
-                                <td>${dueno.rfc || 'N/A'}</td>
-                                <td>${dueno.nombre_mascota || 'N/A'}</td>
-                            </tr>
-                        `; [cite: 35]
-                    }); [cite: 35]
-                }) [cite: 35]
-                .catch(error => console.error("Error al cargar dueños:", error)); [cite: 36]
-        }
+<h1>Descripción</h1>
 
-        function openTab(evt, tabName) { [cite: 36]
-            var i, content, tablinks; [cite: 36]
-            content = document.getElementsByClassName("content-section"); [cite: 37]
-            for (i = 0; i < content.length; i++) { [cite: 37]
-                content[i].style.display = "none"; [cite: 37]
-                content[i].classList.remove("active"); [cite: 37]
-            }
-            tablinks = document.getElementsByClassName("tab-btn"); [cite: 37]
-            for (i = 0; i < tablinks.length; i++) { [cite: 38]
-                tablinks[i].classList.remove("active"); [cite: 38]
-            }
-            
-            var targetTab = document.getElementById(tabName); [cite: 38]
-            targetTab.style.display = "flex"; [cite: 38]
-            targetTab.classList.add("active"); [cite: 38]
-            if(evt) evt.currentTarget.classList.add("active"); [cite: 39]
-            
-            if (tabName === 'consultorios') cargarConsultorios(); [cite: 39]
-            if (tabName === 'medicos') cargarMedicos(); [cite: 39]
-            if (tabName === 'mascotas') cargarMascotas(); [cite: 40]
-            if (tabName === 'dueños') cargarDuenos(); [cite: 40]
-            if (tabName === 'consultas') cargarConsultas(); [cite: 40]
-        } [cite: 41]
-    </script>
+<p>En <span class="highlight">Shirokuro</span> no solo somos una veterinaria, somos el lugar donde tratamos diversas especies de animales para mejorar su salud y que se encuentren en buen estado, para eso contamos con personas capacitadas para que tu mascota reciba un buen trato y una consulta agradable.</p>
+
+<p>Atendemos de todo un poco: desde los clásicos perritos y gatitos hasta los animales más curiosos como erizos, reptiles y aves. Si tu mascota necesita una revisión, sus vacunas o simplemente quieres checar que todo ande bien, estamos listos para recibirte de la mejor forma y tratar a tu mascota.</p>
+
+<p>Nuestro sistema de base de datos nos permite organizar la información de cada paciente de manera eficiente y segura.</p>
+
+<img src="img2.png" alt="Excelencia Medica" class="img-vet">
+ </article>
+
+<img src="img3.png" alt="Cuidado y Amor Total" class="img-lateral">
+
+</div>
+
+<div id="consultorios" class="content-section">
+
+<div class="sidebar-form">
+
+<h3>Registrar Consultorio</h3>
+
+<form action="#" method="POST">
+
+<div class="form-group"><label>ID:</label><input type="text" placeholder="Ej: VET-001" required> </div>
+
+<div class="form-group"><label>Turno:</label><input type="text" placeholder="Ej: Matutino" required> </div>
+
+<div class="form-group"><label>Horario: </label><input type="text" placeholder="Ej: 9:00am 2:00pm" required> </div>
+
+<div class="form-group"><label>Teléfono:</label><input type="text" placeholder="Ej: 52 656..." required> </div>
+ <div class="form-group"><label>Médico Responsable:</label><input type="text" required> </div>
+
+<button type="submit" class="btn-submit-vet">Guardar Consultorio</button>
+
+</form>
+
+</div>
+
+<div class="table-container">
+
+<h3>Base de Datos: Consultorios</h3>
+
+<div class="card line-aqua">
+
+<table>
+
+<thead>
+
+<tr><th>ID</th><th>Turno</th><th>Horario</th><th>Telefono</th><th>Médico Responsable</th></tr>
+
+</thead>
+
+<tbody id="tabla-consultorios">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="medicos" class="content-section">
+
+<div class="sidebar-form">
+
+<h3>Registrar Médico</h3>
+
+<form action="#" method="POST">
+
+<div class="form-group"> <label>ID: </label><input type="text" placeholder="Ej: VET-001" required> </div>
+
+<div class="form-group"> <label>Nombre: </label><input type="text" required> </div>
+
+<div class="form-group"> <label>Especialidad: </label><input type="text" required> </div>
+
+<div class="form-group"><label>Turno:</label><input type="text" required> </div>
+
+<div class="form-group"><label>Cédula Profesional:</label><input type="text" required> </div>
+
+<div class="form-group"><label>Teléfono:</label><input type="text" required> </div>
+
+<button type="submit" class="btn-submit-vet">Alta de Personal</button>
+
+</form>
+
+</div>
+
+<div class="table-container">
+
+<h3>Base de Datos: Personal Médico</h3>
+
+<div class="card line-pink">
+
+<table>
+
+<thead>
+
+<tr><th>ID</th><th>Nombre</th><th>Especialidad</th><th>Turno</th><th>Cedula Profesional</th><th>Telefono</th></tr>
+
+</thead>
+
+<tbody id="tabla-medicos">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="mascotas" class="content-section">
+
+<div class="sidebar-form">
+
+<h3>Registrar Mascota</h3>
+
+<form action="#" method="POST">
+
+<div class="form-group"><label>ID Mascota:</label><input type="text" placeholder="PET-1234" required> </div>
+
+<div class="form-group"> <label>Nombre Mascota:</label><input type="text" required> </div>
+
+<div class="form-group"> <label>Especie: </label><input type="text" required> </div>
+
+<div class="form-group"><label>Raza:</label><input type="text" required> </div>
+
+<div class="form-group"><label>Fecha:</label><input type="text" placeholder="DD/MM/AA" required></div>
+ <div class="form-group"><label>Sexo:</label><input type="text" placeholder="Macho/Hembra" required></div>
+ <div class="form-group"><label>Color:</label><input type="text" required></div>
+ <div class="form-group"><label>ID_Dueño:</label><input type="text" placeholder="CL-XXXXX" required></div>
+ <div class="form-group"><label>Características:</label><input type="text"></div>
+ <div class="form-group"><label>Peso:</label><input type="text" placeholder="Ej: 4kg" required></div>
+ <div class="form-group"><label>Tamaño:</label><input type="text" placeholder="Ej: Mediano" required></div>
+ <div class="form-group"><label>Complexión:</label><input type="text" required></div>
+ <div class="form-group"><label>Alimentación:</label><input type="text" placeholder="Ej: Omnívora" required></div>
+ <button type="submit" class="btn-submit-vet">Ingresar Mascota</button>
+ </form>
+ </div>
+ <div class="table-container">
+ <h3>Base de Datos: Pacientes (Mascotas)</h3>
+ <div class="card line-purple">
+ <table>
+ <thead>
+ <tr><th>ID Mascota</th><th>Nombre</th><th>Especie</th><th>Raza</th><th>Fecha</th><th>Sexo</th><th>ID Dueño</th><th>Características</th></tr>
+ </thead>
+ <tbody id="tabla-mascotas">
+ </tbody>
+ </table>
+ </div>
+ </div>
+</div>
+<div id="dueños" class="content-section">
+ <div class="sidebar-form">
+ <h3>Registrar Dueño</h3>
+ <form action="#" method="POST">
+ <div class="form-group"><label>ID Cliente:</label><input type="text" placeholder="CL-1234" required></div>
+ <div class="form-group"><label>Nombre Completo:</label><input type="text" required></div>
+ <div class="form-group"><label>Dirección:</label><input type="text" required></div>
+ <div class="form-group"><label>Teléfono:</label><input type="text" required></div>
+ <div class="form-group"><label>Correo Electrónico:</label><input type="text" required></div>
+ <div class="form-group"><label>RFC:</label><input type="text" required></div>
+ <div class="form-group"><label>Nombre Mascota:</label><input type="text" required></div>
+ <button type="submit" class="btn-submit-vet">Añadir Cliente</button>
+ </form>
+ </div>
+ <div class="table-container">
+ <h3>Base de Datos: Directorio de Clientes</h3>
+ <div class="card line-blue">
+ <table>
+ <thead>
+ <tr><th>ID Cliente</th><th>Nombre Completo</th><th>Direccion</th><th>Teléfono</th><th>Correo Electronico</th><th>RFC</th><th>Nombre Mascota</th></tr>
+ </thead>
+ <tbody id="tabla-duenos">
+ </tbody>
+ </table>
+ </div>
+ </div>
+</div>
+<div id="consultas" class="content-section">
+ <div class="sidebar-form">
+ <h3>Agendar Consulta</h3>
+ <form action="#" method="POST">
+ <div class="form-group"><label>Nombre:</label><input type="text" required></div>
+ <div class="form-group"><label>ID (Mascota):</label><input type="text" placeholder="PET-XXXX" required></div>
+ <div class="form-group"><label>Fecha:</label><input type="text" placeholder="DD/MM/AA" required></div>
+ <div class="form-group"><label>Hora:</label><input type="text" placeholder="Ej: 10am" required></div>
+ <div class="form-group"><label>ID-VET:</label><input type="text" placeholder="VET-001" required></div>
+ <div class="form-group"><label>Estado:</label><input type="text" placeholder="Ej: Pendiente" required></div>
+ <div class="form-group"><label>Médico:</label><input type="text" required></div>
+ <button type="submit" class="btn-submit-vet">Agendar Consulta</button>
+ </form>
+ </div>
+ <div class="table-container">
+ <h3>Base de Datos: Historial de Consultas</h3>
+ <div class="card line-green">
+ <table>
+ <thead>
+ <tr><th>ID</th><th>Médico</th><th>Nombre Mascota</th><th>Fecha</th><th>Hora</th><th>ID-VET</th><th>Estado</th></tr>
+ </thead>
+ <tbody id="tabla-consultas">
+ </tbody>
+ </table>
+ </div>
+ </div>
+</div>
+<footer>
+ <p>Desarrollado por: <span class="azul-rey">CASTRO CHAIREZ ZULAY VALENTINA</span></p>
+ <p>No. de Control: <span class="azul-rey">0822</span> | Semestre: <span class="azul-rey">4to</span></p>
+ <p>Grupo: <span class="azul-rey">J</span> | Especialidad: <span class="azul-rey">Programación</span></p>
+</footer>
+
+<script>
+ const API_URL = "http://localhost:3000/api";
+
+ function cargarMascotas() {
+     fetch(`${API_URL}/mascotas`)
+         .then(response => response.json())
+         .then(data => {
+             const tabla = document.getElementById("tabla-mascotas");
+             tabla.innerHTML = "";
+             data.forEach(mascota => {
+                 tabla.innerHTML += `
+                 <tr>
+                     <td>${mascota._id}</td>
+                     <td>${mascota.nombre || 'N/A'}</td>
+                     <td>${mascota.especie || 'N/A'}</td>
+                     <td>${mascota.raza || 'N/A'}</td>
+                     <td>${mascota.fecha || 'N/A'}</td>
+                     <td>${mascota.sexo || 'N/A'}</td>
+                     <td>${mascota.id_dueno || 'N/A'}</td>
+                     <td>Color: ${mascota.caracteristicas?.color || 'N/A'}, Peso: ${mascota.caracteristicas?.peso || 'N/A'}</td>
+                 </tr>`;
+             });
+         })
+         .catch(error => console.error("Error al cargar mascotas:", error));
+ }
+
+ function cargarMedicos() {
+     fetch(`${API_URL}/medicos`)
+         .then(response => response.json())
+         .then(data => {
+             const tabla = document.getElementById("tabla-medicos");
+             tabla.innerHTML = "";
+             data.forEach(medico => {
+                 tabla.innerHTML += `
+                 <tr>
+                     <td>${medico._id}</td>
+                     <td>${medico.nombre || 'N/A'}</td>
+                     <td>${medico.especialidad || 'N/A'}</td>
+                     <td>${medico.turno || 'N/A'}</td>
+                     <td>${medico.cedula || 'N/A'}</td>
+                     <td>${medico.tel || 'N/A'}</td>
+                 </tr>`;
+             });
+         })
+         .catch(error => console.error("Error al cargar médicos:", error));
+ }
+
+ function cargarConsultas() {
+     fetch(`${API_URL}/consultas`)
+         .then(response => response.json())
+         .then(data => {
+             const tabla = document.getElementById("tabla-consultas");
+             tabla.innerHTML = "";
+             data.forEach(consulta => {
+                 tabla.innerHTML += `
+                 <tr>
+                     <td>${consulta._id}</td>
+                     <td>${consulta.medico || 'N/A'}</td>
+                     <td>${consulta.nombre || 'N/A'}</td>
+                     <td>${consulta.fecha || 'N/A'}</td>
+                     <td>${consulta.hora || 'N/A'}</td>
+                     <td>${consulta.id_vet || 'N/A'}</td>
+                     <td><span class="badge">${consulta.estado || 'Pendiente'}</span></td>
+                 </tr>`;
+             });
+         })
+         .catch(error => console.error("Error al cargar consultas:", error));
+ }
+
+ function cargarConsultorios() {
+     fetch(`${API_URL}/consultio`)
+         .then(response => response.json())
+         .then(data => {
+             const tabla = document.getElementById("tabla-consultorios");
+             tabla.innerHTML = "";
+             data.forEach(item => {
+                 tabla.innerHTML += `
+                 <tr>
+                     <td>${item._id}</td>
+                     <td>${item.turno || 'N/A'}</td>
+                     <td>${item.horario || 'N/A'}</td>
+                     <td>${item.tel || 'N/A'}</td>
+                     <td>${item.vet || 'N/A'}</td>
+                 </tr>`;
+             });
+         })
+         .catch(error => console.error("Error al cargar consultorios:", error));
+ }
+
+ function cargarDuenos() {
+     fetch(`${API_URL}/duenos`)
+         .then(response => response.json())
+         .then(data => {
+             const tabla = document.getElementById("tabla-duenos");
+             tabla.innerHTML = "";
+             data.forEach(dueno => {
+                 tabla.innerHTML += `
+                 <tr>
+                     <td>${dueno._id}</td>
+                     <td>${dueno.nombre || 'N/A'}</td>
+                     <td>${dueno.direccion || 'N/A'}</td>
+                     <td>${dueno.tel || 'N/A'}</td>
+                     <td>${dueno.email || 'N/A'}</td>
+                     <td>${dueno.rfc || 'N/A'}</td>
+                     <td>${dueno.nombre_mascota || 'N/A'}</td>
+                 </tr>`;
+             });
+         })
+         .catch(error => console.error("Error al cargar dueños:", error));
+ }
+
+ function openTab(evt, tabName) {
+     var i, content, tablinks;
+     content = document.getElementsByClassName("content-section");
+     for (i = 0; i < content.length; i++) {
+         content[i].style.display = "none";
+         content[i].classList.remove("active");
+     }
+     tablinks = document.getElementsByClassName("tab-btn");
+     for (i = 0; i < tablinks.length; i++) {
+         tablinks[i].classList.remove("active");
+     }
+     
+     var targetTab = document.getElementById(tabName);
+     targetTab.style.display = "flex";
+     targetTab.classList.add("active");
+     if(evt) evt.currentTarget.classList.add("active");
+     
+     if (tabName === 'consultorios') cargarConsultorios();
+     if (tabName === 'medicos') cargarMedicos();
+     if (tabName === 'mascotas') cargarMascotas();
+     if (tabName === 'dueños') cargarDuenos();
+     if (tabName === 'consultas') cargarConsultas();
+ }
+
+ document.addEventListener("DOMContentLoaded", () => {
+     // No carga nada al inicio para respetar la navegación asíncrona original
+ });
+</script>
 </body>
 </html>

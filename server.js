@@ -3,120 +3,70 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
-// 1. MIDDLEWARES
-app.use(cors()); // Permite que index.html se comunique con el servidor desde puertos diferentes
-app.use(express.json()); // Permite recibir datos en formato JSON
+// Permite que tu index.html (aunque se abra como archivo local) consulte la API
+app.use(cors());
+app.use(express.json());
 
-// 2. CONEXIÓN A MONGODB ATLAS
-// REEMPLAZA esta URL por tu propia cadena de conexión de MongoDB Atlas
+// ==========================================
+// ⚠️ REEMPLAZA CON TU CADENA DE CONEXIÓN DE MONGODB ATLAS
+// ==========================================
 const MONGO_URI = "tu_cadena_de_conexion_de_mongodb_atlas_aqui";
 
 mongoose.connect(MONGO_URI)
-    .then(() => console.log("¡Conexión exitosa a MongoDB Atlas!"))
-    .catch(err => console.error("Error de conexión a MongoDB:", err));
+    .then(() => console.log("🚀 Conectado con éxito a MongoDB Atlas"))
+    .catch(err => console.error("❌ Error al conectar a MongoDB:", err));
 
-// 3. DEFINICIÓN DE ESQUEMAS Y MODELOS (Basados en las colecciones de tu app)
+// ==========================================
+// DEFINICIÓN DE MODELOS (Mapeados a tus colecciones)
+// ==========================================
 
-// Modelo Consultorios
-const ConsultorioSchema = new mongoose.Schema({
-    turno: String,
-    horario: String,
-    tel: String,
-    vet: String
-}, { collection: 'consultorios' }); // Especifica el nombre exacto de la colección en Atlas
-const Consultorio = mongoose.model('Consultorio', ConsultorioSchema);
+const Consultorio = mongoose.model('Consultorio', new mongoose.Schema({
+    turno: String, horario: String, tel: String, vet: String
+}, { collection: 'consultorios' }));
 
-// Modelo Médicos
-const MedicoSchema = new mongoose.Schema({
-    nombre: String,
-    especialidad: String,
-    turno: String,
-    cedula: String,
-    tel: String
-}, { collection: 'medicos' });
-const Medico = mongoose.model('Medico', MedicoSchema);
+const Medico = mongoose.model('Medico', new mongoose.Schema({
+    nombre: String, especialidad: String, turno: String, cedula: String, tel: String
+}, { collection: 'medicos' }));
 
-// Modelo Mascotas
-const MascotaSchema = new mongoose.Schema({
-    nombre: String,
-    especie: String,
-    raza: String,
-    fecha: String,
-    sexo: String,
-    id_dueno: String,
-    caracteristicas: {
-        color: String,
-        peso: String,
-        tamano: String,
-        complexion: String,
-        alimentacion: String
-    }
-}, { collection: 'mascotas' });
-const Mascota = mongoose.model('Mascota', MascotaSchema);
+const Mascota = mongoose.model('Mascota', new mongoose.Schema({
+    nombre: String, especie: String, raza: String, fecha: String, sexo: String, id_dueno: String,
+    caracteristicas: { color: String, peso: String }
+}, { collection: 'mascotas' }));
 
-// Modelo Dueños
-const DuenoSchema = new mongoose.Schema({
-    nombre: String,
-    direccion: String,
-    tel: String,
-    email: String,
-    rfc: String,
-    nombre_mascota: String
-}, { collection: 'duenos' });
-const Dueno = mongoose.model('Dueno', DuenoSchema);
+const Dueno = mongoose.model('Dueno', new mongoose.Schema({
+    nombre: String, direccion: String, tel: String, email: String, rfc: String, nombre_mascota: String
+}, { collection: 'duenos' }));
 
-// Modelo Consultas
-const ConsultaSchema = new mongoose.Schema({
-    medico: String,
-    nombre: String,
-    fecha: String,
-    hora: String,
-    id_vet: String,
-    estado: String
-}, { collection: 'consultas' });
-const Consulta = mongoose.model('Consulta', ConsultaSchema);
+const Consulta = mongoose.model('Consulta', new mongoose.Schema({
+    medico: String, nombre: String, fecha: String, hora: String, id_vet: String, estado: String
+}, { collection: 'consultas' }));
 
-
-// 4. RUTAS DE LA API (GET para leer datos y renderizarlos en las tablas)
+// ==========================================
+// RUTAS API (GET)
+// ==========================================
 
 app.get('/api/consultio', async (req, res) => {
-    try {
-        const datos = await Consultorio.find();
-        res.json(datos);
-    } catch (err) { res.status(500).json({ error: err.message }); }
+    try { res.json(await Consultorio.find()); } catch (err) { res.status(500).json(err); }
 });
 
 app.get('/api/medicos', async (req, res) => {
-    try {
-        const datos = await Medico.find();
-        res.json(datos);
-    } catch (err) { res.status(500).json({ error: err.message }); }
+    try { res.json(await Medico.find()); } catch (err) { res.status(500).json(err); }
 });
 
 app.get('/api/mascotas', async (req, res) => {
-    try {
-        const datos = await Mascota.find();
-        res.json(datos);
-    } catch (err) { res.status(500).json({ error: err.message }); }
+    try { res.json(await Mascota.find()); } catch (err) { res.status(500).json(err); }
 });
 
 app.get('/api/duenos', async (req, res) => {
-    try {
-        const datos = await Dueno.find();
-        res.json(datos);
-    } catch (err) { res.status(500).json({ error: err.message }); }
+    try { res.json(await Dueno.find()); } catch (err) { res.status(500).json(err); }
 });
 
 app.get('/api/consultas', async (req, res) => {
-    try {
-        const datos = await Consulta.find();
-        res.json(datos);
-    } catch (err) { res.status(500).json({ error: err.message }); }
+    try { res.json(await Consulta.find()); } catch (err) { res.status(500).json(err); }
 });
 
-// 5. ENCENDER EL SERVIDOR
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en: http://localhost:${PORT}`);
+    console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
 });
