@@ -1,21 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
 <title>Veterinaria Shirokuro</title>
-
 <meta charset="utf-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-
 /* 1. CONFIGURACIÓN GENERAL Y FUENTES */
-
  * { box-sizing: border-box; }
-
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
@@ -24,7 +15,6 @@ body {
 }
 
 /* 2. ENCABEZADO (HEADER) */
-
 header {
     background-color: #000000;
     padding: 30px;
@@ -35,7 +25,6 @@ header {
     justify-content: center;
     gap: 20px;
 }
-
 header h2 {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -44,21 +33,18 @@ header h2 {
     text-transform: uppercase;
     letter-spacing: 3px;
 }
-
 header img {
     max-height: 60px;
     width: auto;
 }
 
 /* 3. MENÚ DE NAVEGACIÓN */
-
 nav {
     background-color: #4169E1;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-
 nav button {
     background: none;
     border: none;
@@ -70,12 +56,10 @@ nav button {
     font-size: 14px;
     transition: 0.3s;
 }
-
 nav button:hover {
     background-color: #00FFFF;
     color: #000000;
 }
-
 nav button.active {
     background-color: #0a1a2a;
     color: #00FFFF;
@@ -83,7 +67,6 @@ nav button.active {
 }
 
 /* 4. MAQUETACIÓN EN PARALELO (SPLIT LAYOUT) */
-
 .content-section {
     display: none;
     padding: 40px;
@@ -91,14 +74,12 @@ nav button.active {
     margin: 0 auto;
     min-height: 60vh;
 }
-
 .content-section.active {
     display: flex;
     flex-direction: row;
     gap: 30px;
     align-items: flex-start;
 }
-
 #inicio.active {
     display: flex;
     flex-direction: row;
@@ -120,16 +101,13 @@ nav button.active {
     max-height: 80vh;
     overflow-y: auto;
 }
-
 .sidebar-form::-webkit-scrollbar {
     width: 6px;
 }
-
 .sidebar-form::-webkit-scrollbar-thumb {
     background-color: #4169E1;
     border-radius: 3px;
 }
-
 .sidebar-form h3 {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -144,23 +122,19 @@ nav button.active {
 }
 
 /* --- AREA DERECHA: Visualización de Tablas de la BD */
-
 .table-container {
     flex: 2.5;
     width: 100%;
 }
-
 .table-container h3 {
     color: #80E0FF;
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 20px;
 }
-
 .form-group {
     margin-bottom: 14px;
 }
-
 .form-group label {
     display: block;
     font-size: 13px;
@@ -168,7 +142,6 @@ nav button.active {
     margin-bottom: 5px;
     font-weight: bold;
 }
-
 .sidebar-form input[type="text"],
 .sidebar-form input[type="number"],
 .sidebar-form input[type="date"],
@@ -182,14 +155,12 @@ nav button.active {
     font-family: 'Segoe UI', sans-serif;
     font-size: 14px;
 }
-
 .sidebar-form input:focus,
 .sidebar-form select:focus {
     outline: none;
     border-color: #00FFFF;
     box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
 }
-
 .btn-submit-vet {
     background-color: #4169E1;
     color: #ffffff;
@@ -203,14 +174,12 @@ nav button.active {
     transition: 0.3s;
     margin-top: 10px;
 }
-
 .btn-submit-vet:hover {
     background-color: #00aeff;
     color: #000000;
 }
 
 /* 5. TARJETAS, TABLAS Y DECORACIONES ORIGINALES */
-
 .main-article {
     background-color: #0a1a2a;
     border: 2px solid #00FFFF;
@@ -219,19 +188,16 @@ nav button.active {
     text-align: left;
     flex: 2;
 }
-
 .main-article h1 {
     color: #80E0FF;
     border-bottom: 1px solid #4169E1;
     padding-bottom: 10px;
     margin-top: 0;
 }
-
 .highlight {
     color: #00FFFF;
     font-weight: bold;
 }
-
 .card {
     background-color: #111111;
     padding: 20px;
@@ -240,13 +206,11 @@ nav button.active {
     width: 100%;
     overflow-x: auto;
 }
-
 table {
     width: 100%;
     border-collapse: collapse;
     background-color: #0a0a0a;
 }
-
 th, td {
     padding: 12px;
     text-align: left;
@@ -254,7 +218,6 @@ th, td {
     font-size: 14px;
     white-space: nowrap;
 }
-
 th { background-color: #111; color: #00FFFF; }
 
 .line-aqua { border-left-color: #00FFFF; }
@@ -271,7 +234,6 @@ th { background-color: #111; color: #00FFFF; }
     font-size: 12px;
     text-transform: uppercase;
 }
-
 .img-vet {
     max-width: 300px;
     height: auto;
@@ -280,7 +242,6 @@ th { background-color: #111; color: #00FFFF; }
     border-radius: 10px;
     border: 1px solid #4169E1;
 }
-
 .img-lateral {
     max-width: 250px;
     height: auto;
@@ -291,7 +252,6 @@ th { background-color: #111; color: #00FFFF; }
 }
 
 /* 6. PIE DE PAGINA (FOOTER) */
-
 footer {
     background-color: #000000;
     padding: 25px;
@@ -301,7 +261,6 @@ footer {
     width: 100%;
     color: #ffffff; 
 }
-
 footer p { margin: 5px; font-size: 14px; }
 .azul-rey { color: #4169E1; font-weight: bold; }
 
@@ -321,13 +280,12 @@ footer p { margin: 5px; font-size: 14px; }
 }
 </style>
 </head>
-
 <body>
 
 <header>
     <img src="logo.png" alt="Logo Izquierda">
     <h2>Shirokuro</h2>
-    <img src="logo.png" alt="Logo">
+    <img src="logo.png" alt="Logo Derecha">
 </header>
 
 <nav>
@@ -370,8 +328,7 @@ footer p { margin: 5px; font-size: 14px; }
                 <thead>
                     <tr><th>ID</th><th>Turno</th><th>Horario</th><th>Teléfono</th><th>Médico Responsable</th></tr>
                 </thead>
-                <tbody id="tabla-consultorios">
-                    </tbody>
+                <tbody id="tabla-consultorios"></tbody>
             </table>
         </div>
     </div>
@@ -397,8 +354,7 @@ footer p { margin: 5px; font-size: 14px; }
                 <thead>
                     <tr><th>ID</th><th>Nombre</th><th>Especialidad</th><th>Turno</th><th>Cédula Profesional</th><th>Teléfono</th></tr>
                 </thead>
-                <tbody id="tabla-medicos">
-                    </tbody>
+                <tbody id="tabla-medicos"></tbody>
             </table>
         </div>
     </div>
@@ -431,8 +387,7 @@ footer p { margin: 5px; font-size: 14px; }
                 <thead>
                     <tr><th>ID Mascota</th><th>Nombre</th><th>Especie</th><th>Raza</th><th>Fecha</th><th>Sexo</th><th>ID Dueño</th><th>Características</th></tr>
                 </thead>
-                <tbody id="tabla-mascotas">
-                    </tbody>
+                <tbody id="tabla-mascotas"></tbody>
             </table>
         </div>
     </div>
@@ -459,8 +414,7 @@ footer p { margin: 5px; font-size: 14px; }
                 <thead>
                     <tr><th>ID Cliente</th><th>Nombre Completo</th><th>Dirección</th><th>Teléfono</th><th>Correo Electrónico</th><th>RFC</th><th>Nombre Mascota</th></tr>
                 </thead>
-                <tbody id="tabla-duenos">
-                    </tbody>
+                <tbody id="tabla-duenos"></tbody>
             </table>
         </div>
     </div>
@@ -487,8 +441,7 @@ footer p { margin: 5px; font-size: 14px; }
                 <thead>
                     <tr><th>ID</th><th>Médico</th><th>Nombre Mascota</th><th>Fecha</th><th>Hora</th><th>ID-VET</th><th>Estado</th></tr>
                 </thead>
-                <tbody id="tabla-consultas">
-                    </tbody>
+                <tbody id="tabla-consultas"></tbody>
             </table>
         </div>
     </div>
@@ -505,110 +458,62 @@ const API_URL = "http://localhost:3000/api";
 
 function cargarConsultorios() {
     fetch(`${API_URL}/consultio`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-            const tabla = document.getElementById("tabla-consultorios");
-            tabla.innerHTML = "";
+            const t = document.getElementById("tabla-consultorios");
+            t.innerHTML = "";
             data.forEach(item => {
-                tabla.innerHTML += `
-                <tr>
-                    <td>${item._id}</td>
-                    <td>${item.turno || 'N/A'}</td>
-                    <td>${item.horario || 'N/A'}</td>
-                    <td>${item.tel || 'N/A'}</td>
-                    <td>${item.vet || 'N/A'}</td>
-                </tr>`;
+                t.innerHTML += `<tr><td>${item._id}</td><td>${item.turno || 'N/A'}</td><td>${item.horario || 'N/A'}</td><td>${item.tel || 'N/A'}</td><td>${item.vet || 'N/A'}</td></tr>`;
             });
-        })
-        .catch(error => console.error("Error al cargar consultorios:", error));
+        }).catch(e => console.error(e));
 }
 
 function cargarMedicos() {
     fetch(`${API_URL}/medicos`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-            const tabla = document.getElementById("tabla-medicos");
-            tabla.innerHTML = "";
-            data.forEach(medico => {
-                tabla.innerHTML += `
-                <tr>
-                    <td>${medico._id}</td>
-                    <td>${medico.nombre || 'N/A'}</td>
-                    <td>${medico.especialidad || 'N/A'}</td>
-                    <td>${medico.turno || 'N/A'}</td>
-                    <td>${medico.cedula || 'N/A'}</td>
-                    <td>${medico.tel || 'N/A'}</td>
-                </tr>`;
+            const t = document.getElementById("tabla-medicos");
+            t.innerHTML = "";
+            data.forEach(m => {
+                t.innerHTML += `<tr><td>${m._id}</td><td>${m.nombre || 'N/A'}</td><td>${m.especialidad || 'N/A'}</td><td>${m.turno || 'N/A'}</td><td>${m.cedula || 'N/A'}</td><td>${m.tel || 'N/A'}</td></tr>`;
             });
-        })
-        .catch(error => console.error("Error al cargar médicos:", error));
+        }).catch(e => console.error(e));
 }
 
 function cargarMascotas() {
     fetch(`${API_URL}/mascotas`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-            const tabla = document.getElementById("tabla-mascotas");
-            tabla.innerHTML = "";
-            data.forEach(mascota => {
-                tabla.innerHTML += `
-                <tr>
-                    <td>${mascota._id}</td>
-                    <td>${mascota.nombre || 'N/A'}</td>
-                    <td>${mascota.especie || 'N/A'}</td>
-                    <td>${mascota.raza || 'N/A'}</td>
-                    <td>${mascota.fecha || 'N/A'}</td>
-                    <td>${mascota.sexo || 'N/A'}</td>
-                    <td>${mascota.id_dueno || 'N/A'}</td>
-                    <td>Color: ${mascota.caracteristicas?.color || 'N/A'}, Peso: ${mascota.caracteristicas?.peso || 'N/A'}</td>
-                </tr>`;
+            const t = document.getElementById("tabla-mascotas");
+            t.innerHTML = "";
+            data.forEach(m => {
+                t.innerHTML += `<tr><td>${m._id}</td><td>${m.nombre || 'N/A'}</td><td>${m.especie || 'N/A'}</td><td>${m.raza || 'N/A'}</td><td>${m.fecha || 'N/A'}</td><td>${m.sexo || 'N/A'}</td><td>${m.id_dueno || 'N/A'}</td><td>Color: ${m.caracteristicas?.color || 'N/A'}, Peso: ${m.caracteristicas?.peso || 'N/A'}</td></tr>`;
             });
-        })
-        .catch(error => console.error("Error al cargar mascotas:", error));
+        }).catch(e => console.error(e));
 }
 
 function cargarDuenos() {
     fetch(`${API_URL}/duenos`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-            const tabla = document.getElementById("tabla-duenos");
-            tabla.innerHTML = "";
-            data.forEach(dueno => {
-                tabla.innerHTML += `
-                <tr>
-                    <td>${dueno._id}</td>
-                    <td>${dueno.nombre || 'N/A'}</td>
-                    <td>${dueno.direccion || 'N/A'}</td>
-                    <td>${dueno.tel || 'N/A'}</td>
-                    <td>${dueno.email || 'N/A'}</td>
-                    <td>${dueno.rfc || 'N/A'}</td>
-                    <td>${dueno.nombre_mascota || 'N/A'}</td>
-                </tr>`;
+            const t = document.getElementById("tabla-duenos");
+            t.innerHTML = "";
+            data.forEach(d => {
+                t.innerHTML += `<tr><td>${d._id}</td><td>${d.nombre || 'N/A'}</td><td>${d.direccion || 'N/A'}</td><td>${d.tel || 'N/A'}</td><td>${d.email || 'N/A'}</td><td>${d.rfc || 'N/A'}</td><td>${d.nombre_mascota || 'N/A'}</td></tr>`;
             });
-        })
-        .catch(error => console.error("Error al cargar dueños:", error));
+        }).catch(e => console.error(e));
 }
 
 function cargarConsultas() {
     fetch(`${API_URL}/consultas`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-            const tabla = document.getElementById("tabla-consultas");
-            tabla.innerHTML = "";
-            data.forEach(consulta => {
-                tabla.innerHTML += `
-                <tr>
-                    <td>${consulta._id}</td>
-                    <td>${consulta.medico || 'N/A'}</td>
-                    <td>${consulta.nombre || 'N/A'}</td>
-                    <td>${consulta.fecha || 'N/A'}</td>
-                    <td>${consulta.hora || 'N/A'}</td>
-                    <td>${consulta.id_vet || 'N/A'}</td>
-                    <td><span class="badge">${consulta.estado || 'Pendiente'}</span></td>
-                </tr>`;
+            const t = document.getElementById("tabla-consultas");
+            t.innerHTML = "";
+            data.forEach(c => {
+                t.innerHTML += `<tr><td>${c._id}</td><td>${c.medico || 'N/A'}</td><td>${c.nombre || 'N/A'}</td><td>${c.fecha || 'N/A'}</td><td>${c.hora || 'N/A'}</td><td>${c.id_vet || 'N/A'}</td><td><span class="badge">${c.estado || 'Pendiente'}</span></td></tr>`;
             });
-        })
-        .catch(error => console.error("Error al cargar consultas:", error));
+        }).catch(e => console.error(e));
 }
 
 function openTab(evt, tabName) {
@@ -622,19 +527,26 @@ function openTab(evt, tabName) {
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].classList.remove("active");
     }
-    
     var targetTab = document.getElementById(tabName);
     targetTab.style.display = "flex";
     targetTab.classList.add("active");
     if(evt) evt.currentTarget.classList.add("active");
     
-    // Al dar clic, se activa la inserción automática de documentos
     if (tabName === 'consultorios') cargarConsultorios();
     if (tabName === 'medicos') cargarMedicos();
     if (tabName === 'mascotas') cargarMascotas();
     if (tabName === 'dueños') cargarDuenos();
     if (tabName === 'consultas') cargarConsultas();
 }
+
+// CARGA INMEDIATA PREVENTIVA DESDE EL ARRANQUE DEL DOM
+document.addEventListener("DOMContentLoaded", () => {
+    cargarConsultorios();
+    cargarMedicos();
+    cargarMascotas();
+    cargarDuenos();
+    cargarConsultas();
+});
 </script>
 </body>
 </html>
