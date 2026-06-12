@@ -3,6 +3,27 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "mongodb": "^7.3.0",
     "mongoose": "^9.7.0"
-  }
+  },
+  "name": "p2-mi-negocio-web_zvcc_0822",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZayVal11/P2-Mi-Negocio-WEB_ZVCC_0822.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ZayVal11/P2-Mi-Negocio-WEB_ZVCC_0822/issues"
+  },
+  "homepage": "https://github.com/ZayVal11/P2-Mi-Negocio-WEB_ZVCC_0822#readme"
 }
